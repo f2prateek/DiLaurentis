@@ -13,13 +13,13 @@ func TestDiLaurentis(t *testing.T) {
 		in       string
 		expected string
 	}{
-		{"{\"foo\":\"bar\"}", "{\n  \"foo\": \"bar\"\n}"},
+		{"{\"foo\":\"bar\"}", "{\n  \"foo\": \"bar\"\n}\n"},
 	}
 
 	for _, c := range cases {
 		in := strings.NewReader(c.in)
 		buf := new(bytes.Buffer)
-		main.DiLaurentis(in, buf)
+		main.DiLaurentis(in, buf, "  ")
 		got := buf.String()
 		if got != c.expected {
 			t.Errorf("got %q but expected %q for input %q", got, c.expected, c.in)

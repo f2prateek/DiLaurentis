@@ -5,4 +5,13 @@ Pretty print JSON documents.
 `go get github.com/f2prateek/DiLaurentis`
 
 ### Usage
-`in | dilaurentis`
+```
+dilaurentis [--indentation indent]
+dilaurentis -h | --help
+dilaurentis --version
+
+Options:
+  --indentation indent    Indentation [default:   ]
+  -h --help               Show this screen.
+  --version               Show version.
+```
