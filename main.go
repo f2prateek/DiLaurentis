@@ -28,12 +28,15 @@ Options:
 )
 
 func main() {
-	arguments, err := docopt.Parse(usage, nil, true, version, false)
+	run(nil, os.Stdin, os.Stdout)
+}
+
+func run(argv []string, in io.Reader, out io.Writer) {
+	arguments, err := docopt.Parse(usage, argv, true, version, false)
 	check(err)
 
 	indent := arguments["--indentation"].(string)
-
-	DiLaurentis(os.Stdin, os.Stdout, indent)
+	DiLaurentis(in, out, indent)
 }
 
 func DiLaurentis(in io.Reader, out io.Writer, indent string) {
