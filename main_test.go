@@ -17,7 +17,7 @@ func TestDiLaurentis(t *testing.T) {
 	for _, c := range cases {
 		in := strings.NewReader(c.in)
 		buf := new(bytes.Buffer)
-		DiLaurentis(in, buf, "  ")
+		DiLaurentis(in, buf, 2)
 		got := buf.String()
 		if got != c.expected {
 			t.Errorf("got %q but expected %q for input %q", got, c.expected, c.in)
@@ -32,9 +32,9 @@ func TestArgs(t *testing.T) {
 		expected string
 	}{
 		{[]string{}, "{\n  \"foo\": \"bar\"\n}\n"},
-		{[]string{"--indent", ""}, "{\n\"foo\": \"bar\"\n}\n"},
-		{[]string{"--indent", "  "}, "{\n  \"foo\": \"bar\"\n}\n"},
-		{[]string{"--indent", "    "}, "{\n    \"foo\": \"bar\"\n}\n"},
+		{[]string{"--indent", "0"}, "{\n\"foo\": \"bar\"\n}\n"},
+		{[]string{"--indent", "2"}, "{\n  \"foo\": \"bar\"\n}\n"},
+		{[]string{"--indent", "4"}, "{\n    \"foo\": \"bar\"\n}\n"},
 	}
 
 	for _, c := range cases {

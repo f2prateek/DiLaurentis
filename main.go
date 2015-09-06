@@ -6,6 +6,8 @@ import (
 	"io"
 	"log"
 	"os"
+	"strconv"
+	"strings"
 
 	"github.com/tj/docopt"
 )
@@ -22,7 +24,7 @@ Usage:
   dilaurentis --version
 
 Options:
-  --indentation indent    Indentation [default:   ]
+  --indentation indent    Indentation Level [default: 2]
   -h --help               Show this screen.
   --version               Show version.`
 )
@@ -35,17 +37,19 @@ func run(argv []string, in io.Reader, out io.Writer) {
 	arguments, err := docopt.Parse(usage, argv, true, version, false)
 	check(err)
 
-	indent := arguments["--indentation"].(string)
+	indent, err := strconv.Atoi(arguments["--indentation"].(string))
+	check(err)
+
 	DiLaurentis(in, out, indent)
 }
 
-func DiLaurentis(in io.Reader, out io.Writer, indent string) {
+func DiLaurentis(in io.Reader, out io.Writer, indent int) {
 	var data interface{}
 
 	err := json.NewDecoder(in).Decode(&data)
 	check(err)
 
-	o, err := json.MarshalIndent(data, "", indent)
+	o, err := json.MarshalIndent(data, "", strings.Repeat(" ", indent))
 	check(err)
 
 	out.Write(o)
